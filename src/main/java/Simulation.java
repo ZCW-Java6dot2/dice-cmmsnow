@@ -1,3 +1,8 @@
+import java.io.PrintStream;
+import java.io.PrintWriter;
+import javax.xml.bind.PrintConversionEvent;
+import com.sun.codemodel.internal.JPrimitiveType;
+
 public class Simulation {
 
     Integer numOfDice = 2;
@@ -16,18 +21,24 @@ public class Simulation {
         }
     }
 
-    public void printResults(){
-        System.out.println("Bin of 2s contains " + bins.getNumInBin(2) + "occurrences.");
-        System.out.println("Bin of 3s contains " + bins.getNumInBin(3) + "occurrences.");
-        System.out.println("Bin of 4s contains " + bins.getNumInBin(4) + "occurrences.");
-        System.out.println("Bin of 5s contains " + bins.getNumInBin(5) + "occurrences.");
-        System.out.println("Bin of 6s contains " + bins.getNumInBin(6) + "occurrences.");
-        System.out.println("Bin of 7s contains " + bins.getNumInBin(7) + "occurrences.");
-        System.out.println("Bin of 8s contains " + bins.getNumInBin(8) + "occurrences.");
-        System.out.println("Bin of 9s contains " + bins.getNumInBin(9) + "occurrences.");
-        System.out.println("Bin of 10s contains " + bins.getNumInBin(10) + "occurrences.");
-        System.out.println("Bin of 11s contains " + bins.getNumInBin(11) + "occurrences.");
-        System.out.println("Bin of 12s contains " + bins.getNumInBin(12) + "occurrences.");
+    public String printStars(float percentage){
+        StringBuilder stars = new StringBuilder();
+        float percent = percentage * 100;
+        int starsNum = (int) percent;
+        for (int i=0; i<starsNum; i++){
+            stars.append("*");
+        }
+        return stars.toString();
     }
 
+    public void printResults(){
+
+        System.out.println("***\nSimulation of " + numOfDice + " dice tossed " + numOfSims + " times\n***\n");
+        for (int i = 2; i<=(6*numOfDice); i++){
+            float percentage = (float) bins.getNumInBin(i)/numOfSims;
+            int timesTossed = bins.getNumInBin(i);
+            String stars = printStars(percentage);
+            System.out.printf("\n %2d:  %5d:   %.2f %s ",i,timesTossed,percentage,stars);
+        }
+    }
 }
