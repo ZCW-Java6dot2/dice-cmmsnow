@@ -23,6 +23,4 @@ public class DiceTest {
         Assert.assertEquals(numberOfDice, actualNumOfDice);
     }
 
-
-
 }
